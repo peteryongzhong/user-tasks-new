@@ -1103,9 +1103,9 @@ class _RepeatedSplits(metaclass=ABCMeta):
         self.random_state = random_state
         self.cvargs = cvargs
         
-        # Extract n_splits from cvargs for proper __repr__ display
-        if 'n_splits' in cvargs:
-            self.n_splits = cvargs['n_splits']
+        # Extract all parameters from cvargs for proper __repr__ display
+        for key, value in cvargs.items():
+            setattr(self, key, value)
 
     def split(self, X, y=None, groups=None):
         """Generates indices to split data into training and test set.
