@@ -1027,6 +1027,30 @@ def test_get_n_splits_for_repeated_stratified_kfold():
     assert expected_n_splits == rskf.get_n_splits()
 
 
+def test_repeated_kfold_repr():
+    # Test __repr__ for RepeatedKFold with default parameters
+    rkf = RepeatedKFold()
+    expected_repr = "RepeatedKFold(n_repeats=10, n_splits=5, random_state=None)"
+    assert repr(rkf) == expected_repr
+    
+    # Test __repr__ for RepeatedKFold with custom parameters
+    rkf_custom = RepeatedKFold(n_splits=3, n_repeats=5, random_state=42)
+    expected_repr = "RepeatedKFold(n_repeats=5, n_splits=3, random_state=42)"
+    assert repr(rkf_custom) == expected_repr
+
+
+def test_repeated_stratified_kfold_repr():
+    # Test __repr__ for RepeatedStratifiedKFold with default parameters
+    rskf = RepeatedStratifiedKFold()
+    expected_repr = "RepeatedStratifiedKFold(n_repeats=10, n_splits=5, random_state=None)"
+    assert repr(rskf) == expected_repr
+    
+    # Test __repr__ for RepeatedStratifiedKFold with custom parameters
+    rskf_custom = RepeatedStratifiedKFold(n_splits=3, n_repeats=5, random_state=42)
+    expected_repr = "RepeatedStratifiedKFold(n_repeats=5, n_splits=3, random_state=42)"
+    assert repr(rskf_custom) == expected_repr
+
+
 def test_repeated_stratified_kfold_determinstic_split():
     X = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]
     y = [1, 1, 1, 0, 0]

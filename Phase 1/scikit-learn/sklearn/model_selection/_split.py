@@ -1102,6 +1102,10 @@ class _RepeatedSplits(metaclass=ABCMeta):
         self.n_repeats = n_repeats
         self.random_state = random_state
         self.cvargs = cvargs
+        
+        # Extract all parameters from cvargs for proper __repr__ display
+        for key, value in cvargs.items():
+            setattr(self, key, value)
 
     def split(self, X, y=None, groups=None):
         """Generates indices to split data into training and test set.
@@ -1162,6 +1166,9 @@ class _RepeatedSplits(metaclass=ABCMeta):
         cv = self.cv(random_state=rng, shuffle=True,
                      **self.cvargs)
         return cv.get_n_splits(X, y, groups) * self.n_repeats
+
+    def __repr__(self):
+        return _build_repr(self)
 
 
 class RepeatedKFold(_RepeatedSplits):
